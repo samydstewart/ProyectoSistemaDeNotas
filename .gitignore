@@ -1,0 +1,12 @@
+conexionDB.php
+config.php
+.env
+
+.htaccess
+error_log
+access_log
+
+.DS_Store
+Thumbs.conexionDB
+.vscode/
+.idea/
