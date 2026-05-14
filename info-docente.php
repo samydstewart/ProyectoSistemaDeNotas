@@ -71,7 +71,10 @@ include 'conexionDB.php';
 
 
     <script>
-
+        async function ActualizarPeriodos() {
+            const codCur = document.getElementById("contenedor-periodos");
+            
+        }
 
     </script>
 </body>
