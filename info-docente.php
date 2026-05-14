@@ -1,3 +1,18 @@
+<?php
+session_start();
+
+if (!isset($_SESSION["cod_doc"])) {
+    header("Location: index.php");
+    exit();
+}
+
+$cod_doc = $_SESSION["cod_doc"];
+$nomb_doc = $_SESSION["nomb_doc"];
+
+include 'conexionDB.php';
+
+
+?>
 <html>
 
 <head>
@@ -14,36 +29,38 @@
             <h1>Sistema de Notas - PHP y Postgresql</h1>
         </div>
         <div class="descripcion-pagina">
-            <p>Informaciond de Docentes</p>
+            <p>Informaciond de <?php echo $_SESSION['nomb_doc']; ?></p>
         </div>
     </header>
 
     <div class="card">
         <section>
             <h3>Cursos del Docente</h3>
-            <form action="curso.php" method="POST">
+            <form action="ver-estudiantes.php" method="POST">
                 <div class="campo">
-                    <label for="cursos">Cursos</label>
-                    <input list="cursos-lista" id="cursos-input" name="cursos" placeholder="Elige el cursos" class="form-control">
-                    <datalist id="cursos-lista">
-                        <option value="Bases de Datos">Bases de Datos</option>
-                        <option value="Ecuaciones Diferenciales">Ecuaciones Diferenciales</option>
-                        <option value="Estadística y Probabilidad">Estadística y Probabilidad</option>
-                        <option value="Termodinámica">Termodinámica</option>
-                        <option value="Bioquímica">Bioquímica</option>
-                    </datalist>
+                    <label>Cursos</label>
+                    <select name="cod_cur" id="cursos-input" onchange="ActualizarPeriodos()">
+
+                        <option value="">Seleccione el curso</option>
+                        <?php
+                        $sql = "select * from docentes e join cursos c on e.cod_doc=c.cod_doc and e.cod_doc=$cod_doc";
+                        $result = pg_query($sql);
+
+                        while ($fila = pg_fetch_assoc($result)) {
+                            echo "<option value='{$fila['cod_cur']}'>{$fila["nomb_cur"]}</option>";
+                        }
+                        ?>
+                    </select>
                 </div>
                 <div class="campo">
                     <label for="year">Año Académico</label>
-                    <input type="number" id="year" name="year" min="2000" max="2027" value="2026">
+                    <input type="number" id="year" name="year" min="2000" max="2027" value="2026" oninput="ActualizarPeriodos()">
                 </div>
                 <div class="campo">
                     <p>Periodo Académico:</p>
-                    <input type="radio" id="p1" name="periodo" value="2026-1">
-                    <label for="p1">Primer Semestre</label>
-
-                    <input type="radio" id="p2" name="periodo" value="2026-2">
-                    <label for="p2">Segundo Semestre</label>
+                    <div id="contenedor-periodos">
+                        <span style="color: gray" ;>Seleccione un curso para ver los periodos</span>
+                    </div>
                 </div>
             </form>
             <label for="ver-listado">Estudiantes</label>
@@ -53,7 +70,10 @@
 
 
 
+    <script>
 
+
+    </script>
 </body>
 
 </html>
