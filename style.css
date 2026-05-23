@@ -1,0 +1,52 @@
+/* 1. Base para ambos elementos */
+.btn-editar, 
+.btn-eliminar {
+    /* Forzamos a que ambos se comporten como bloques flexibles en línea */
+    display: inline-flex;
+    align-items: center;     /* Centra verticalmente el icono y el texto */
+    justify-content: center;  /* Centra horizontalmente el contenido */
+    gap: 8px;                /* Deja un espacio exacto entre el icono y el texto */
+    
+    /* Quitamos los estilos raros que el navegador les pone por defecto */
+    text-decoration: none;   /* Quita el subrayado azul del enlace <a> */
+    border: none;            /* Quita el borde gris feo del <button> */
+    outline: none;
+    cursor: pointer;         /* Hace que el botón muestre la manito al pasar el mouse */
+    
+    /* Dimensiones y tipografía uniformes */
+    font-family: inherit;    /* Usa la misma letra de la página */
+    font-size: 14px;
+    font-weight: bold;
+    padding: 8px 16px;       /* Mismo espacio interno para ambos */
+    border-radius: 4px;      /* Bordes ligeramente redondeados */
+    transition: background-color 0.2s ease; /* Efecto suave al pasar el mouse */
+}
+
+/* 2. Estilos específicos para las imágenes/iconos internos */
+.btn-editar img,
+.btn-eliminar img {
+    width: 20px;             /* Forzamos a que los iconos midan exactamente lo mismo */
+    height: 20px;
+    object-fit: contain;     /* Evita que la imagen se distorsione */
+    display: block;
+}
+
+/* 3. Color para el botón de Editar (Enlace <a>) */
+.btn-editar {
+    background-color: #2563eb; /* Azul */
+    color: white;
+}
+
+.btn-editar:hover {
+    background-color: #1d4ed8; /* Azul más oscuro al pasar el mouse */
+}
+
+/* 4. Color para el botón de Eliminar (<button>) */
+.btn-eliminar {
+    background-color: #dc2626; /* Rojo */
+    color: white;
+}
+
+.btn-eliminar:hover {
+    background-color: #b91c1c; /* Rojo más oscuro al pasar el mouse */
+}

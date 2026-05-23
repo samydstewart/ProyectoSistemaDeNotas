@@ -44,7 +44,7 @@ include 'conexionDB.php';
                         <option value="">Seleccione el curso</option>
                         <?php
                         $sql = "select * from docentes e join cursos c on e.cod_doc=c.cod_doc and e.cod_doc=$cod_doc";
-                        $result = pg_query($sql);
+                        $result = pg_query($dbconn,$sql);
 
                         while ($fila = pg_fetch_assoc($result)) {
                             echo "<option value='{$fila['cod_cur']}'>{$fila["nomb_cur"]}</option>";
@@ -62,9 +62,10 @@ include 'conexionDB.php';
                         <span style="color: gray" ;>Seleccione un curso para ver los periodos</span>
                     </div>
                 </div>
+                <label for="ver-listado">Estudiantes</label>
+                <button type="submit">Ver listado</button>
             </form>
-            <label for="ver-listado">Estudiantes</label>
-            <button type="submit">Ver listado</button>
+
         </section>
     </div>
 
@@ -72,10 +73,40 @@ include 'conexionDB.php';
 
     <script>
         async function ActualizarPeriodos() {
-            const codCur = document.getElementById("contenedor-periodos");
-            
-        }
+            const codCur = document.getElementById('cursos-input').value;
+            const year = document.getElementById('year').value;
+            const contenedor_periodo = document.getElementById("contenedor-periodos");
 
+
+            if (!year || !codCur) {
+                
+                return;
+
+            }
+
+            
+
+            try {
+                // Llamamos al archivo que consulta los periodos en Neon
+                const response = await fetch(`obtener_periodos.php?cod_cur=${codCur}&year=${year}`);
+                const periodos = await response.json();
+
+                contenedor_periodo.innerHTML = "";
+
+                if (periodos.length > 0) {
+                    periodos.forEach(p => {
+                        contenedor_periodo.innerHTML += `
+                        <input type="radio" id="p${p.periodo}" name="periodo" value="${p.periodo}" required>
+                        <label for="p${p.periodo}">${year}-${p.periodo}</label><br>
+                    `;
+                    });
+                } else {
+                    contenedor_periodo.innerHTML = "<span style='color:red;'>No hay inscripciones para este año</span>";
+                }
+            } catch (error) {
+                console.error("Error al cargar periodos:", error);
+            }
+        }
     </script>
 </body>
 
