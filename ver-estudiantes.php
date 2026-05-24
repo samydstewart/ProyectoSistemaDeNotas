@@ -44,11 +44,14 @@ $result = pg_query($dbconn, $sql);
                 </thead>
                 <tbody>
                     <?php
-                    while ($fila = pg_fetch_assoc($result)) {   
+                    while ($fila = pg_fetch_assoc($result)) {  
+                        $nomb_est = trim($fila["nomb_est"]);
+                        $nombre_url = $nomb_est; 
+                        echo $nombre_url;
                         echo "<tr>";
                         echo "<td>{$fila["cod_est"]}</td><td>{$fila["nomb_est"]}</td>";
                         echo "<td>";
-                        echo "<a href='editar_nota.php?cod_est={$fila['cod_est']}&cod_cur=$cod_cur&year=$year&periodo=$periodo' class='btn btn-editar'><img src='editar-icon.png' alt='icono-editar'>Editar</a>";
+                        echo "<a href='editar-nota.php?cod_est={$fila['cod_est']}&cod_cur=$cod_cur&year=$year&periodo=$periodo&nomb_est=$nombre_url' class='btn btn-editar'><img src='editar-icon.png' alt='icono-editar'>Editar</a>";
                         echo "<form action='eliminar-inscripcion.php' method='POST' style='display:inline;' onsubmit='return desearEliminar()'>";
                         echo "<input type='hidden' name='cod_cur' value='$cod_cur'>";
                         echo "<input type='hidden' name='cod_est' value='{$fila['cod_est']}'>";

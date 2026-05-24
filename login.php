@@ -17,7 +17,7 @@
     </header>
 <div class="card">
     <section class="login-container">
-        <form action="validar.php" method="POST">
+        <form action="validar-login.php" method="POST">
             <div class="campo">
                 <label for="usuario">Codigo de Docente</label>
                 <input type="text" id="usuario" name="usuario_db" required placeholder="1">
