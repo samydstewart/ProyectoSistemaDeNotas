@@ -3,7 +3,7 @@ $host = "ep-nameless-unit-aqy5qwk2-pooler.c-8.us-east-1.aws.neon.tech";
 $port = "5432";
 $dbname = "neondb";
 $user = "neondb_owner";
-$password = "escribe contraseña";
+$password = "npg_MoVlUqv16mWn";
 
 // El sslmode=require es vital para servicios en la nube como Neon
 $connection_string = "host={$host} port={$port} dbname={$dbname} user={$user} password={$password} sslmode=require";
